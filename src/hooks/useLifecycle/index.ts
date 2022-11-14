@@ -13,12 +13,10 @@ function onCleanup(onCleanupFn: OnCallbackFn) {
   const isMounted = useRef(false);
 
   // On cleanupp callback function;
-  const onCleanup = () => {
+  useEffect(() => () => {
     isMounted.current && onCleanupFn();
     isMounted.current = true;
-  }
-
-  useEffect(() => onCleanup, [isMounted]);
+  }, [isMounted]);
 }
 
 export function useLifecycle() {
