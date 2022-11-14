@@ -9,7 +9,7 @@ type SetValues = {
 type UseBooleanOutput = [boolean, SetValues];
 
 export function useBoolean(initial?: boolean): UseBooleanOutput {
-  const [value, setValue] = useState(!!initial);
+  const [value, setValue] = useState(initial || false);
 
   const toTrue = () => setValue(true);
   const toFalse = () => setValue(false);
