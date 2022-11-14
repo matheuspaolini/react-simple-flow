@@ -1,5 +1,6 @@
 import { Portal } from 'components/Portal';
 import { useBoolean } from 'hooks/useBoolean';
+import { useLifecycle } from 'hooks/useLifecycle';
 import { CSSProperties, useEffect, useState } from 'react';
 import { For } from './components/For';
 
@@ -24,8 +25,19 @@ const personList = [
 
 const numberList = new Array(8).fill(null).map((_, i) => i);
 
+const ToUnmount = () => {
+  const { onCleanup } = useLifecycle();
+
+  onCleanup(() => console.log('Unmountted!'));
+
+  return (
+    <div>ToUnmount component.</div>
+  );
+}
+
 export default function App() {
   const [isLoading, setIsLoading] = useBoolean();
+  const [isRender, setIsRender] = useBoolean(true);
 
   useEffect(() => {
     if (!isLoading) return;
@@ -39,19 +51,27 @@ export default function App() {
         isLoading: {isLoading.toString()}
       </button>
 
+      <button onClick={() => setIsRender.toFalse()}>
+        ToUnmount
+      </button>
+
+      {isRender && <ToUnmount />}
+
       <Portal>
         <small>
           <b>This node was appended on body.</b>
         </small>
       </Portal>
 
-      {isLoading && (
-        <Portal>
-          <small>
-            <b>This node will keep appended on body while isLoading is equals to true.</b>
-          </small>
-        </Portal>
-      )}
+      {
+        isLoading && (
+          <Portal>
+            <small>
+              <b>This node will keep appended on body while isLoading is equals to true.</b>
+            </small>
+          </Portal>
+        )
+      }
 
       <Show type="width" isOver={600}>
         <h3>Show when width is over: 600px.</h3>
@@ -101,6 +121,6 @@ export default function App() {
       <For each={numberList}>
         {(number) => <small key={number.key}>{number.props}</small>}
       </For>
-    </div>
+    </div >
   );
 }
