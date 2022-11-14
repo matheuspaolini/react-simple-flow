@@ -1,26 +1,45 @@
 import { ReactNode } from 'react';
-import { useWindowSize } from '../../hooks/useWindowSize';
+import { useWindowSize } from 'hooks/useWindowSize';
 
-type Props = {
+// TODO: Improve types;
+// TODO: Remove hard-code;
+
+export type ShowProps = {
   children?: ReactNode;
 
   type?: 'width' | 'height';
+
+  inCase?: boolean;
 
   isUnder?: number;
   isOver?: number;
   isEquals?: number;
 }
 
-export function ShowWhenWidth({ children, type = 'width', isOver, isEquals, isUnder }: Props) {
+export function Show({ type = 'width', inCase, isOver, isEquals, isUnder, ...props }: ShowProps) {
   const { width, height } = useWindowSize();
+
+  if (inCase) return props.children as JSX.Element;
 
   if (!width || !height) return null;
 
+  const isWidth = type === 'width';
   const isWidthOver = isOver && width > isOver;
   const isWidthUnder = isUnder && width < isUnder;
   const isWidthEquals = width === isEquals;
+  const isWidthMatch = isWidthEquals || isWidthUnder || isWidthOver;
 
-  if (isWidthEquals || isWidthUnder || isWidthOver) return children as JSX.Element;
+  const isHeight = type === 'height';
+  const isHeightOver = isOver && height > isOver;
+  const isHeightUnder = isUnder && height < isUnder;
+  const isHeightEquals = height === isEquals;
+  const isHeightMatch = isHeightEquals || isHeightUnder || isHeightOver;
+
+  if (isWidth)
+    if (isWidthMatch) return props.children as JSX.Element;
+
+  if (isHeight)
+    if (isHeightMatch) return props.children as JSX.Element;
 
   return null;
 }
