@@ -1,23 +1,8 @@
-import { ReactNode } from 'react';
-import { useWindowSize } from 'hooks/useWindowSize';
-
-// TODO: Improve types;
-// TODO: Remove hard-code;
-
-export type ShowProps = {
-  children?: ReactNode;
-
-  type?: 'width' | 'height';
-
-  inCase?: boolean;
-
-  isUnder?: number;
-  isOver?: number;
-  isEquals?: number;
-}
+import { useScreen } from '../../hooks/useScreen';
+import { ShowProps } from './types';
 
 export function Show({ type = 'width', inCase, isOver, isEquals, isUnder, ...props }: ShowProps) {
-  const { width, height } = useWindowSize();
+  const { width, height } = useScreen();
 
   if (inCase) return props.children as JSX.Element;
 
