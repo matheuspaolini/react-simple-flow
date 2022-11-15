@@ -4,8 +4,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -38,8 +37,8 @@
     "trailingComma": "es5"
   },
 
-  "name": "react-control-flow",
-  "author": "Matheus",
+  "name": "react-simple-flow",
+  "author": "Matheus Paolini",
   "module": "dist/react-control-flow.esm.js",
   "size-limit": [
     {
@@ -51,6 +50,7 @@
       "limit": "10 KB"
     }
   ],
+
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@size-limit/preset-small-lib": "^8.1.0",
