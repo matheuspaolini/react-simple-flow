@@ -1,6 +1,4 @@
-import { Fragment, ReactNode, useId } from 'react';
-
-type Each<T> = { item: T; index: number; };
+import React, { Fragment, ReactNode } from 'react';
 
 export type ForProps<T> = {
   each: T[];
@@ -8,8 +6,6 @@ export type ForProps<T> = {
 }
 
 export function For<T>({ each, children }: ForProps<T>) {
-  const id = useId();
-
   if (typeof children !== 'function')
     throw new Error('Children should be a callback function on For component.');
 

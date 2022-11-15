@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom';
 
-import { isDOM } from 'utils/isDOM';
+import { isDOM } from '../../utils/isDOM';
 
-import { useGetDocumentBody } from 'hooks/useGetDocumentBody';
+import { useGetDocumentBody } from '../../hooks/useGetDocumentBody';
 
 export function Portal({ ...props }) {
   const { children } = props;

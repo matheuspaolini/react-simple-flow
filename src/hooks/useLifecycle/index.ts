@@ -1,23 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { onMount } from './onMount';
+import { onCleanup } from './onCleanup';
 
-type OnCallbackFn = () => void;
-
-function onMount(onMountFn: OnCallbackFn) {
-  useEffect(() => {
-    // On mount callback function;
-    onMountFn();
-  }, []);
-}
-
-function onCleanup(onCleanupFn: OnCallbackFn) {
-  const isMounted = useRef(false);
-
-  // On cleanupp callback function;
-  useEffect(() => () => {
-    isMounted.current && onCleanupFn();
-    isMounted.current = true;
-  }, [isMounted]);
-}
+export type OnCallbackFn = () => void;
 
 export function useLifecycle() {
   return { onMount, onCleanup };
