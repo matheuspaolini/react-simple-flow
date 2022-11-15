@@ -1,16 +1,10 @@
 import { Fragment, ReactNode, useId } from 'react';
 
-type Props<T> = T;
-type Key = string;
-
-type Each<T> = {
-  props: Props<T>;
-  key: Key;
-};
+type Each<T> = { item: T; index: number; };
 
 export type ForProps<T> = {
-  each: Props<T>[];
-  children: (each: Each<T>) => ReactNode;
+  each: T[];
+  children: (item: T, index: number) => ReactNode;
 }
 
 export function For<T>({ each, children }: ForProps<T>) {
@@ -21,7 +15,7 @@ export function For<T>({ each, children }: ForProps<T>) {
 
   return (
     <Fragment>
-      {each.map((props, index) => children({ props, key: id + index }))}
+      {each.map((item, index) => children(item, index))}
     </Fragment>
   );
 }
