@@ -2,13 +2,16 @@ import ReactDOM from 'react-dom';
 
 import { isDOM } from '../../utils/isDOM';
 
-import { useGetDocumentBody } from '../../hooks/useGetDocumentBody';
+import { useEffect, useRef } from 'react';
 
 export function Portal({ ...props }) {
-  const { children } = props;
-  const documentBody = useGetDocumentBody();
+  const documentBodyRef = useRef(null as null | HTMLElement);
 
-  if (!isDOM() || !documentBody) return null;
+  useEffect(() => {
+    documentBodyRef.current = document.body;
+  }, []);
 
-  return ReactDOM.createPortal(children, documentBody);
+  if (!isDOM() || !documentBodyRef.current) return null;
+
+  return ReactDOM.createPortal(props.children, documentBodyRef.current);
 }

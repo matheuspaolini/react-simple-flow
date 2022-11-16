@@ -1,8 +1,8 @@
-import { useScreen } from '../../hooks/useScreen';
+import { useWindowSize } from '../../hooks/useWindowSize';
 import { ShowProps } from './types';
 
 export function Show({ type = 'width', inCase, isOver, isEquals, isUnder, ...props }: ShowProps) {
-  const { width, height } = useScreen();
+  const { width, height } = useWindowSize();
 
   if (inCase) return props.children as JSX.Element;
 

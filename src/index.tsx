@@ -1,8 +1,8 @@
 // Components
 import { For } from './components/For';
+import { Portal } from './components/Portal';
 import { Show } from './components/Visibility';
 import { Hide } from './components/Visibility';
-import { Portal } from './components/Portal';
 
 export {
   For,
@@ -12,21 +12,18 @@ export {
 }
 
 // Hooks
+import { useMount } from './hooks/useMount';
+import { useUnmount } from './hooks/useUnmount';
 import { useBoolean } from './hooks/useBoolean';
-import { useScreen } from './hooks/useScreen';
-import { useLifecycle } from './hooks/useLifecycle';
 import { useDebounce } from './hooks/useDebounce';
+import { useWindowSize } from './hooks/useWindowSize';
+import { useCreateRange } from './hooks/useCreateRange';
 
 export {
   useBoolean,
-  useScreen,
-  useLifecycle,
-  useDebounce
-}
-
-// Utility functions
-import { createRange } from './utils/createRange';
-
-export {
-  createRange
+  useWindowSize,
+  useMount,
+  useUnmount,
+  useDebounce,
+  useCreateRange
 }

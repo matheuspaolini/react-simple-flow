@@ -1,8 +1,8 @@
-import { useScreen } from '../../hooks/useScreen';
+import { useWindowSize } from '../../hooks/useWindowSize';
 import { HideProps } from './types';
 
 export function Hide({ type = 'width', inCase, isOver, isEquals, isUnder, ...props }: HideProps) {
-  const { width, height } = useScreen();
+  const { width, height } = useWindowSize();
 
   if (inCase) return null;
 
