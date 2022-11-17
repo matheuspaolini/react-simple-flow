@@ -1,7 +1,7 @@
 import { useInViewport } from '../../src/hooks/useInViewport';
 import { useWindowSize } from '../../src/hooks/useWindowSize';
 import { useCreateRange } from '../../src/hooks/useCreateRange';
-import { For } from '../../src/components/For';
+import { Stack } from '../../src/components/Stack';
 import { useEffect, useState } from 'react';
 
 export default function App() {
@@ -15,8 +15,11 @@ export default function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div>
-
-    </div>
+    <Stack flexDirection="column" padding={16} isMaxHeight>
+      <div>Title 1</div>
+      <div>Title 2</div>
+      <div>Title 3</div>
+      <div>Title 4</div>
+    </Stack>
   );
 }
