@@ -1,37 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from 'react';
 
-// Define general type for useScreen hook, which includes width and height
 type Size = {
-  width: number | undefined;
-  height: number | undefined;
+  width?: number;
+  height?: number;
 }
 
+const initial = {
+  width: undefined,
+  height: undefined
+} as Size;
+
 export function useWindowSize(): Size {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState<Size>({
-    width: undefined,
-    height: undefined,
-  });
+  const onResizeRef = useRef<() => void>();
+
+  const [windowSize, setWindowSize] = useState(initial);
 
   useEffect(() => {
-    // Handler to call on window resize
-    function handleResize() {
-      // Set window width/height to state
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
+    onResizeRef.current = () => setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+
+    window.addEventListener('resize', onResizeRef.current);
+
+    onResizeRef.current();
+
+    return () => {
+      if (onResizeRef.current) {
+        window.removeEventListener('resize', onResizeRef.current);
+      }
     }
+  }, []);
 
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
   return windowSize;
 }
