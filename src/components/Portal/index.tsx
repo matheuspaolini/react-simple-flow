@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 
-import { isDOM } from '../../utils/isDOM';
+import { isClient } from '../../utils/isClient';
 
 import { useEffect, useRef } from 'react';
 
@@ -11,7 +11,7 @@ export function Portal({ ...props }) {
     documentBodyRef.current = document.body;
   }, []);
 
-  if (!isDOM() || !documentBodyRef.current) return null;
+  if (!isClient() || !documentBodyRef.current) return null;
 
   return ReactDOM.createPortal(props.children, documentBodyRef.current);
 }
