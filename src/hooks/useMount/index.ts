@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 
 export function useMount(onMount: () => void) {
   useEffect(() => {
-    onMount();
+    if (typeof onMount === 'function') {
+      onMount();
+    };
   }, []);
 }
