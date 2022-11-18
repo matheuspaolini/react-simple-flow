@@ -97,13 +97,17 @@ export function useCounter({ initial = 0, minimum, maximum, isCap }: Props = {})
   }, [counter, minimum, maximum, isCap]);
 
   const incrementBy = useCallback((amount: number) => {
-    if (isLimit({ amount, isIncrement: true })) return;
+    const isCapReached = isLimit({ amount, isIncrement: true });
+
+    if (isCapReached) return;
 
     setCounter((previous) => previous + amount);
   }, [isLimit]);
 
   const decrementBy = useCallback((amount: number) => {
-    if (isLimit({ amount, isIncrement: false })) return;
+    const isCapReached = isLimit({ amount, isIncrement: false });
+
+    if (isCapReached) return;
 
     setCounter((previous) => previous - amount);
   }, [isLimit]);
