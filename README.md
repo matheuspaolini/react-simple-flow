@@ -30,6 +30,7 @@ To use `react-simple-flow`, you must use `react@16.8.0` or greater which include
 
 - **Hooks**
   - useBoolean
+  - useCounter
   - useCreateRange
   - useDebounce
   - useInViewport
