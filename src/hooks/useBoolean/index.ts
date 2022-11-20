@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 type SetValue = {
   on: () => void;
@@ -8,14 +8,14 @@ type SetValue = {
 
 type UseBooleanOutput = [boolean, SetValue];
 
-export function useBoolean(initial?: boolean): UseBooleanOutput {
-  const [value, setValue] = useState(initial || false);
+export function useBoolean(initial: boolean = false): UseBooleanOutput {
+  const [boolean, setBoolean] = useState(initial);
 
-  const on = () => setValue(true);
-  const off = () => setValue(false);
-  const toggle = () => setValue((previous) => !previous);
+  const callbacks = useMemo(() => ({
+    on: () => setBoolean(true),
+    off: () => setBoolean(false),
+    toggle: () => setBoolean((previous) => !previous),
+  }), []);;
 
-  const setValues = { on, off, toggle };
-
-  return [value, setValues];
+  return [boolean, callbacks];
 }
