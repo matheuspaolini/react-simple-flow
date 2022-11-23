@@ -24,11 +24,15 @@ To use `react-simple-flow`, you must use `react@16.8.0` or greater which include
 - **Components**
 
   - For
-  - Show
-  - Hide
   - Portal
+  - Show
+  - Space
+  - Stack
+  - Stacker
+  - Hide
 
 - **Hooks**
+
   - useBoolean
   - useCounter
   - useCreateRange
