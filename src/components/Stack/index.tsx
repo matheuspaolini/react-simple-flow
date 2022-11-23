@@ -1,55 +1,18 @@
-import React, { CSSProperties, HTMLAttributes, useCallback, useMemo } from 'react';
+import React, { CSSProperties, ForwardedRef, forwardRef, useCallback, useMemo } from 'react';
 
-type CustomProps = {
-  isMaxWidth?: boolean;
-  isMaxHeight?: boolean;
-  isMaxSize?: boolean;
-}
+import { StackProps } from './types';
 
-type PaddingStyles = {
-  padding?: CSSProperties['padding'];
-  paddingLeft?: CSSProperties['paddingLeft'];
-  paddingRight?: CSSProperties['paddingRight'];
-  paddingTop?: CSSProperties['paddingTop'];
-  paddingBottom?: CSSProperties['paddingBottom'];
-}
-
-type MarginStyles = {
-  margin?: CSSProperties['margin'];
-  marginLeft?: CSSProperties['marginLeft'];
-  marginRight?: CSSProperties['marginRight'];
-  marginTop?: CSSProperties['marginTop'];
-  marginBottom?: CSSProperties['marginBottom'];
-}
-
-type FlexStyles = {
-  flexDirection?: CSSProperties['flexDirection'];
-  alignItems?: CSSProperties['alignItems'];
-  justifyContent?: CSSProperties['justifyContent'];
-  gap?: CSSProperties['gap'];
-}
-
-type SizeStyles = {
-  width?: CSSProperties['width'];
-  height?: CSSProperties['height'];
-}
-
-type Props =
-  SizeStyles &
-  FlexStyles &
-  PaddingStyles &
-  MarginStyles &
-  CustomProps &
-  HTMLAttributes<HTMLDivElement>;
-
-export function Stack({ ...props }: Props) {
+function StackComponent(props: StackProps, ref: ForwardedRef<HTMLDivElement>) {
   const {
     alignItems,
     justifyContent,
     flexDirection,
-    width,
-    height,
     gap = 16,
+
+    width,
+    maxWidth,
+    height,
+    maxHeight,
 
     padding,
     paddingBottom,
@@ -96,6 +59,8 @@ export function Stack({ ...props }: Props) {
     flexDirection,
     width,
     height,
+    maxWidth,
+    maxHeight,
     gap,
 
     padding,
@@ -112,9 +77,35 @@ export function Stack({ ...props }: Props) {
 
     ...createSizeStyle(),
     ...style
-  }), []) as CSSProperties;
+  }), [
+    alignItems,
+    justifyContent,
+    flexDirection,
+    width,
+    height,
+    maxWidth,
+    maxHeight,
+    gap,
+
+    padding,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+
+    margin,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    marginTop,
+
+    createSizeStyle,
+    style
+  ]) as CSSProperties;
 
   return (
-    <div style={styles} {...rest} />
+    <div ref={ref} style={styles} {...rest} />
   );
 }
+
+export const Stack = forwardRef(StackComponent);
