@@ -41,7 +41,7 @@ export function useInViewport<T extends HTMLElement | null>() {
       setInViewport(isInsideViewport);
     }));
 
-    observerRef.current.observe(innerRef.current);
+    if (innerRef.current) observerRef.current.observe(innerRef.current as HTMLElement);
 
     observe();
   }, [observe]);

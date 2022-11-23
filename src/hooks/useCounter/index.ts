@@ -42,10 +42,10 @@ export function useCounter({ initial = 0, minimum, maximum, isCap }: Props = {})
   const isMinimumCap = counter === minimum;
   const isMaximumCap = counter === maximum;
 
-  const isInitialLowerThanMinimum = isMinimum && initial < minimum;
-  const isInitialHigherThanMaximum = isMaximum && initial > maximum;
-  const isMaximumLowerThanMinimum = isMaximum && isMinimum && maximum < minimum;
-  const isMinimumHigherThanMaximum = isMaximum && isMinimum && minimum > maximum;
+  const isInitialLowerThanMinimum = isMinimum && minimum && initial < minimum;
+  const isInitialHigherThanMaximum = isMaximum && maximum && initial > maximum;
+  const isMaximumLowerThanMinimum = isMaximum && isMinimum && maximum && minimum && maximum < minimum;
+  const isMinimumHigherThanMaximum = isMaximum && isMinimum && maximum && minimum && minimum > maximum;
 
   if (isInitialLowerThanMinimum)
     throw Error(isInitialLowerThanMinimumMessage);
@@ -70,8 +70,8 @@ export function useCounter({ initial = 0, minimum, maximum, isCap }: Props = {})
   }, [maximum]);
 
   const isLimit = useCallback(({ amount, isIncrement }: IsLimit) => {
-    const isAmountLowerThanMinimum = isMinimum && (counter - amount < minimum);
-    const isAmountGreaterThanMaximum = isMaximum && (counter + amount > maximum);
+    const isAmountLowerThanMinimum = isMinimum && minimum && (counter - amount < minimum);
+    const isAmountGreaterThanMaximum = isMaximum && maximum && (counter + amount > maximum);
 
     if (isIncrement) {
       if (isCap && isAmountGreaterThanMaximum) {
