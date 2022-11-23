@@ -1,14 +1,18 @@
 // Components
 import { For } from './components/For';
 import { Portal } from './components/Portal';
+import { Space } from './components/Space';
 import { Stack } from './components/Stack';
+import { Stacker } from './components/Stacker';
 import { Show } from './components/Visibility';
 import { Hide } from './components/Visibility';
 
 export {
   For,
   Portal,
+  Space,
   Stack,
+  Stacker,
   Show,
   Hide,
 }
